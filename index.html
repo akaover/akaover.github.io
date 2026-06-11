@@ -560,7 +560,7 @@
               <b id="wasteCost">월 0원 낭비</b>
             </div>
             <div class="sentence saving">
-              <span>30분 단축 시 절감액</span>
+              <span>10분 단축 시 절감액</span>
               <b id="savingCost">월 0원 절감</b>
             </div>
             <div class="sentence warning">
@@ -684,7 +684,7 @@
     function adviceFor({ clarityScore, decisionScore, duration, frequency }) {
       if (decisionScore <= 2) return "결정사항 점수가 낮습니다. 회의 초대 전에 결정해야 할 질문을 먼저 적어두는 편이 좋습니다.";
       if (clarityScore <= 2) return "목적 점수가 낮습니다. 목적과 기대 산출물을 한 문장으로 고정한 뒤 필요한 사람만 초대하세요.";
-      if (duration > 60) return "60분을 넘는 회의는 안건을 쪼개거나 30분 단축 목표를 먼저 잡아보세요.";
+      if (duration > 60) return "60분을 넘는 회의는 안건을 쪼개거나 10분 단축 목표를 먼저 잡아보세요.";
       if (frequency >= 8) return "월 8회 이상 반복되는 회의는 격주 전환이나 참석자 로테이션을 검토할 만합니다.";
       return "목적과 결정사항 점수가 안정적입니다. 현재 흐름을 유지하되 시간만 계속 점검하세요.";
     }
@@ -712,7 +712,7 @@
       const decisionWaste = monthlyCost * scorePenalty(decisionScore, 0.5);
       const clarityWaste = monthlyCost * scorePenalty(clarityScore, 0.4);
       const scoreAdjustedMonthlyCost = monthlyCost + decisionWaste + clarityWaste;
-      const shortenedMeetingHours = Math.max(0, meetingHours - 0.5);
+      const shortenedMeetingHours = Math.max(0, meetingHours - (10 / 60));
       const shortenedMonthlyCost = attendees * hourlyCostPerPerson * shortenedMeetingHours * frequency;
       const shortenedDecisionWaste = shortenedMonthlyCost * scorePenalty(decisionScore, 0.5);
       const shortenedClarityWaste = shortenedMonthlyCost * scorePenalty(clarityScore, 0.4);
