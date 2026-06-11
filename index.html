@@ -669,7 +669,7 @@
     }
 
     function calculateScore({ clarityScore, decisionScore, duration }) {
-      let score = 100 - ((5 - clarityScore) * 10) - ((5 - decisionScore) * 12);
+      let score = 100 - ((5 - clarityScore) * 8) - ((5 - decisionScore) * 14);
       if (duration > 60) score -= 10;
       if (duration > 90) score -= 10;
       return Math.max(0, Math.min(100, score));
@@ -709,13 +709,13 @@
       const meetingHours = durationMinutes / 60;
       const oneTimeCost = attendees * hourlyCostPerPerson * meetingHours;
       const monthlyCost = oneTimeCost * frequency;
-      const decisionWaste = monthlyCost * scorePenalty(decisionScore, 0.5);
-      const clarityWaste = monthlyCost * scorePenalty(clarityScore, 0.4);
+      const decisionWaste = monthlyCost * scorePenalty(decisionScore, 0.6);
+      const clarityWaste = monthlyCost * scorePenalty(clarityScore, 0.35);
       const scoreAdjustedMonthlyCost = monthlyCost + decisionWaste + clarityWaste;
       const shortenedMeetingHours = Math.max(0, meetingHours - (10 / 60));
       const shortenedMonthlyCost = attendees * hourlyCostPerPerson * shortenedMeetingHours * frequency;
-      const shortenedDecisionWaste = shortenedMonthlyCost * scorePenalty(decisionScore, 0.5);
-      const shortenedClarityWaste = shortenedMonthlyCost * scorePenalty(clarityScore, 0.4);
+      const shortenedDecisionWaste = shortenedMonthlyCost * scorePenalty(decisionScore, 0.6);
+      const shortenedClarityWaste = shortenedMonthlyCost * scorePenalty(clarityScore, 0.35);
       const shortenedAdjustedMonthlyCost = shortenedMonthlyCost + shortenedDecisionWaste + shortenedClarityWaste;
       const monthlySaving = scoreAdjustedMonthlyCost - shortenedAdjustedMonthlyCost;
       const costPerMinute = frequency > 0 && durationMinutes > 0
